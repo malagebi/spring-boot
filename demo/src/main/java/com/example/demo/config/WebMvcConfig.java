@@ -3,6 +3,8 @@ package com.example.demo.config;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.example.demo.filter.RateLimiterFilter;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -66,14 +68,18 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
 
-   /* @Bean
-    public FreeMarkerViewResolver freeMarkerViewResolver() {
-        System.out.println("MvcConfig.freeMarkerViewResolver()");
-        FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
-        resolver.setPrefix("");
-        resolver.setSuffix(".ftl");
-        resolver.setContentType("text/html; charset=UTF-8");
-        resolver.setRequestContextAttribute("ctx");
-        return resolver;
-    }*/
+
+    @Bean
+    public FilterRegistrationBean rateLimiterFilter(){
+        RateLimiterFilter filter=new RateLimiterFilter();
+        FilterRegistrationBean registrationBean=new FilterRegistrationBean();
+        registrationBean.setFilter(filter);
+        List<String> urlPatterns=new ArrayList<String>();
+        urlPatterns.add("/api/*");//拦截路径，可以添加多个
+        registrationBean.setUrlPatterns(urlPatterns);
+        registrationBean.setOrder(1);
+        return registrationBean;
+    }
+
+
 }

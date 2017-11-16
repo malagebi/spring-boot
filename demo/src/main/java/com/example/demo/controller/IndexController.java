@@ -27,7 +27,6 @@ import java.util.Map;
 public class IndexController {
 
     private static final Logger log = LoggerFactory.getLogger(IndexController.class);
-
     private String to = "shunli.li@ngaa.com.cn";
     @Autowired
     private SystemProperties properties;
@@ -57,9 +56,11 @@ public class IndexController {
         return mv;
     }
 
-    @RequestMapping("/po")
+    @RequestMapping("/api/test")
     public UserInfo hello() {
         UserInfo entity = new UserInfo();
+        entity.setId(1L);
+        entity.setUserName("张三");
         return entity;
     }
 
@@ -73,4 +74,5 @@ public class IndexController {
         mailService.sendHtmlMail(to, "top", "测试HTML");
         return "redirect:/index";
     }
+
 }
