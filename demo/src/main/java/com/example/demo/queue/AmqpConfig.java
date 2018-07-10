@@ -9,14 +9,12 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 /**
  * @author lishunli
  * @create 2017-11-14 11:51
  **/
-@Configuration
 public class AmqpConfig {
 
     public static final String QUEUE_NAME   = "spring-boot-queue";
@@ -25,7 +23,7 @@ public class AmqpConfig {
     @Bean
     public ConnectionFactory connectionFactory() {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
-        connectionFactory.setHost("172.23.23.176");
+        connectionFactory.setHost("10.0.0.42");
         connectionFactory.setUsername("admin");
         connectionFactory.setPassword("admin");
         connectionFactory.setPort(5672);

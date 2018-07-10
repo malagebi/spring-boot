@@ -1,7 +1,5 @@
 package com.example.demo.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,15 +7,14 @@ import java.util.Date;
  * @author lishunli
  * @create 2017-11-14 9:55
  **/
-public class UserInfo implements Serializable{
+public class UserInfo implements Serializable {
 
-    @JSONField(serialize=false)
-    private Long  id;
-
+    private static final long serialVersionUID = 57849277663505186L;
+    private Long id;
+    private String userId;
     private String userName;
 
-    @JSONField(format = "yyy-MM-dd hh:mm:ss")
-    private Date  createTime;
+    private Date createTime;
 
     public Long getId() {
         return id;
@@ -41,6 +38,14 @@ public class UserInfo implements Serializable{
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     @Override

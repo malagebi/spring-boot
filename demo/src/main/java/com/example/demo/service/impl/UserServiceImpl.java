@@ -1,10 +1,13 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.dao.mapper.UserInfoMapper;
-import com.example.demo.dao.model.UserInfo;
+import com.example.demo.entity.UserInfo;
 import com.example.demo.service.UserService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 /**
@@ -17,8 +20,8 @@ public class UserServiceImpl implements UserService{
      public  UserInfoMapper userInfoMapper;
 
     @Override
-    public UserInfo findUserByLoginName() {
-        //PageHelper.startPage(1,10);
+    public List<UserInfo> findUserByLoginName() {
+        PageHelper.startPage(1,10);
         return  userInfoMapper.selectByPrimaryKey(1L);
     }
 }

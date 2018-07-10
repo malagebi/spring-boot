@@ -19,6 +19,7 @@ public class RateLimiterFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        log.info("come in RateLimiterFilter-------------------------");
         //首先申请一个容量为1(每秒)的限流器，
         rateLimiter = RateLimiter.create(1);
     }

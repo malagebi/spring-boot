@@ -1,6 +1,8 @@
 package com.example.demo.dao.mapper;
 
-import com.example.demo.dao.model.UserInfo;
+import com.example.demo.entity.UserInfo;
+
+import java.util.List;
 
 public interface UserInfoMapper {
     int deleteByPrimaryKey(Long id);
@@ -9,7 +11,7 @@ public interface UserInfoMapper {
 
     int insertSelective(UserInfo record);
 
-    UserInfo selectByPrimaryKey(Long id);
+    List<UserInfo> selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(UserInfo record);
 

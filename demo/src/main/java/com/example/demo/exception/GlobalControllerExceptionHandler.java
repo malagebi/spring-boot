@@ -24,7 +24,7 @@ public class GlobalControllerExceptionHandler {
      * @return
      */
     @ExceptionHandler({RuntimeException.class})
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ModelAndView processException(RuntimeException exception) {
         logger.info("自定义异常处理-RuntimeException");
         ModelAndView m = new ModelAndView();

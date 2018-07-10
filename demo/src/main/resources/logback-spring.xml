@@ -35,4 +35,8 @@
     <logger name="com.example.demo.dao.mapper" level="debug" additivity="false">
         <appender-ref ref="console" />
     </logger>
+
+    <logger name="org.thymeleaf" level="warn" additivity="false">
+        <appender-ref ref="console" />
+    </logger>
 </configuration>
