@@ -26,6 +26,7 @@ public class RateLimiterFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        log.info("start in RateLimiterFilter-------------------------");
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse res = (HttpServletResponse) servletResponse;
         if (rateLimiter.tryAcquire()) {

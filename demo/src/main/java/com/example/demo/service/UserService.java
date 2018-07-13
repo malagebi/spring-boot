@@ -9,5 +9,7 @@ import java.util.List;
  * @create 2017-11-14 13:12
  **/
 public interface UserService {
-   List<UserInfo> findUserByLoginName();
+    List<UserInfo> findUserByLoginName();
+    void saveUser(UserInfo  user);
+    List<UserInfo> findUsers(int pageNumber,int pageSize);
 }

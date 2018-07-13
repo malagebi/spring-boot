@@ -1,14 +1,56 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header">
     <meta charset="UTF-8"/>
     <title>首页</title>
+    <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+    <link type="text/css" rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}"/>
+    <script type="application/javascript">
+        $(function () {
+
+
+        })
+
+    </script>
 </head>
 <body>
+<div class="container">
+    <div class="table-responsive">
+        <table class="table  table-bordered table-hover">
+            <caption>基本的表格布局</caption>
+            <thead>
+            <tr >
+                <th>名称</th>
+                <th>城市</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr >
+                <td>Tanmay</td>
+                <td>Bangalore</td>
+                <td>  <button type="button" class="btn  btn-link btn-sm ">原始按钮</button></td>
+            </tr>
+            <tr >
+                <td>Sachin</td>
+                <td>Mumbai</td>
+                <td>  <button type="button" class="btn btn-danger btn-sm ">原始按钮</button></td>
+            </tr>
 
-<h1>这是首页！！！！</h1>
+            </tbody>
+        </table>
+    </div>
+
+    <ul class="pagination">
+        <li><a href="#">&laquo;</a></li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">&raquo;</a></li>
+    </ul>
+</div>
 
 </body>
 </html>

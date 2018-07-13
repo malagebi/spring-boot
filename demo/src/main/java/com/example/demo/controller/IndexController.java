@@ -1,13 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.MailService;
-import com.example.demo.config.SystemProperties;
 import com.example.demo.entity.DataResult;
 import com.example.demo.entity.UserInfo;
-import com.example.demo.i18n.LocaleService;
-import com.example.demo.queue.MessageSender;
 import com.example.demo.service.UserService;
-import com.example.demo.utils.RedisUtil;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -16,12 +12,9 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
-import org.crazycake.shiro.RedisManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,38 +36,20 @@ public class IndexController {
 
     private static final Logger log = LoggerFactory.getLogger(IndexController.class);
     private String to = "shunli.li@ngaa.com.cn";
-    private final SystemProperties properties;
 
-    @Autowired
-    public IndexController(SystemProperties properties) {
-        this.properties = properties;
-    }
 
-    @Autowired
-    private RedisUtil redisUtil;
     @Autowired
     private MailService mailService;
-    @Autowired
-    private MessageSender messageSender;
-    @Autowired
-    private LocaleService localeService;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private RedisManager redisManager;
 
     @Autowired
-    @Qualifier("redisObjectTemplate")
-    private RedisTemplate<String, Object> redisTemplate;
-    @Autowired
-    @Qualifier("redisStringTemplate")
-    private RedisTemplate<String, String> redisStringTemplate;
+    private UserService userService;
+
 
 
     @RequestMapping("/index")
     public String hello(Model model) {
-        redisStringTemplate.opsForValue().set("aaa", "111");
-        return "ok";
+
+        return "index";
     }
 
 
@@ -115,8 +90,8 @@ public class IndexController {
         return result;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(UserInfo user) {
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken("admin", "admin");
         try {
@@ -124,9 +99,6 @@ public class IndexController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        UserInfo user = new UserInfo();
-        user.setUserName("admin");
-        subject.getSession().setAttribute("user", user);
 
         return "success";
 
@@ -144,5 +116,15 @@ public class IndexController {
     @RequestMapping(value = "/loginPage")
     public String loginPage() {
         return "login";
+    }
+
+    @RequestMapping(value = "/saveUser")
+    public ModelAndView saveUser() {
+        UserInfo user=new UserInfo();
+        user.setUserName("test");
+        user.setPassword("123");
+        userService.saveUser(user);
+        ModelAndView mv = new ModelAndView("index");
+        return mv;
     }
 }

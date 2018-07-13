@@ -14,6 +14,8 @@ public class UserInfo implements Serializable {
     private String userId;
     private String userName;
 
+
+    private String password;
     private Date createTime;
 
     public Long getId() {
@@ -48,11 +50,21 @@ public class UserInfo implements Serializable {
         this.userId = userId;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "UserInfo{" +
                 "id=" + id +
+                ", userId='" + userId + '\'' +
                 ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
                 ", createTime=" + createTime +
                 '}';
     }
