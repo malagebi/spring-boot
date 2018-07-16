@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
@@ -56,6 +57,11 @@ public class GlobalControllerExceptionHandler {
         if (ex instanceof HttpRequestMethodNotSupportedException) {
             Error MethodNot = new Error(HttpStatus.METHOD_NOT_ALLOWED.value(), "Request method "+ request.getMethod()+" not supported");
             return new ResponseEntity<Object>(MethodNot, HttpStatus.METHOD_NOT_ALLOWED);
+        }
+
+        if (ex instanceof NoHandlerFoundException) {
+            Error noHandlerFound = new Error(HttpStatus.NOT_FOUND.value(), ex.getMessage());
+            return new ResponseEntity<Object>(noHandlerFound, HttpStatus.NOT_FOUND);
         }
         logger.info("自定义异常处理-Exception");
         return new ResponseEntity<Object>(error, HttpStatus.INTERNAL_SERVER_ERROR);

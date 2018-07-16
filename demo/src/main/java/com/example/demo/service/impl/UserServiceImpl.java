@@ -28,14 +28,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
-    public void saveUser(UserInfo user) {
-        userInfoMapper.insert(user);
+    @Cacheable(value = "users", key = "#p0")
+    public UserInfo findUserById(long id) {
+        return userInfoMapper.selectById(id);
 
     }
 
     @Override
-    @Cacheable(value = "users",key = "#p0")
+    @Transactional
+    public void saveUser(UserInfo user) {
+        userInfoMapper.insert(user);
+    }
+
+    @Override
+    @Cacheable(value = "users", key = "#p0")
     public List<UserInfo> findUsers(int pageNumber, int pageSize) {
         PageHelper.startPage(pageNumber, pageSize);
         return userInfoMapper.findUsers();

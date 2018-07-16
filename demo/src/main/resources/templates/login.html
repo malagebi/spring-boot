@@ -1,73 +1,65 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="en"  xmlns:th="http://www.thymeleaf.org" class="no-js">
 <head>
 
     <meta charset="utf-8"/>
     <title>登录页面</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-
-    <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
-    <script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
-    <link type="text/css" rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}"/>
-    <script type="application/javascript">
-        $(function () {
-
-
-        })
-
+    <script type="application/x-javascript">
+        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
     </script>
+
+    <script type="text/javascript" th:src="@{/assets/css/bootstrap.min.css}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+    <link type="text/css" rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/assets/css/style.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/assets/css/morris.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/assets/css/font-awesome.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/assets/css/jquery-ui.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/assets/css/icon-font.min.css}"  />
+
+    <link href="http://fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400" rel="stylesheet" type="text/css"/>
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
 
 </head>
 
 <body>
-<div class="container">
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">导航栏</a>
-            </div>
-            <div>
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">导航三</a></li>
-                    <li><a href="#">导航三</a></li>
-                    <li><a href="#">导航三</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<div class="main-wthree">
+    <div class="container">
+        <div class="sin-w3-agile">
+            <h2>Sign In</h2>
+            <form  th:action="@{/login}" method="post">
+                <div class="username">
+                    <span class="username">Username:</span>
+                    <input type="text" th:name="userId" th:id="userId" class="name" placeholder="" required="">
+                    <div class="clearfix"></div>
+                </div>
+                <div class="password-agileits">
+                    <span class="username">Password:</span>
+                    <input type="password" th:name="password"  th:id="password" class="password" placeholder="" required="">
+                    <div class="clearfix"></div>
+                </div>
+                <div class="rem-for-agile">
+                    <input type="checkbox" th:id="rememberMe" th:name="remember" class="remember" placeholder="">Remember me
 
-
-<form class="form-horizontal center-block" role="form"
-      action="#" th:action="@{/login}"  method="post">
-    <div class="form-group">
-        <label for="userId" class="col-sm-2 control-label">用户名</label>
-        <div class="col-sm-10">
-            <input th:type="text" class="form-control" th:id="userId" th:name="userId" placeholder="请输入名字">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="password" class="col-sm-2 control-label">密码</label>
-        <div class="col-sm-10">
-            <input type="password" class="form-control" th:id="password" th:name="password" placeholder="请输入密码">
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox">请记住我
-                </label>
+                </div>
+                <div class="login-w3">
+                    <input type="submit" class="login" value="Sign In">
+                </div>
+                <div class="clearfix"></div>
+            </form>
+            <div class="back">
+                <a th:href="@{/index}">Back to home</a>
+            </div>
+            <div class="footer">
+                <p>&copy; 2016 xxxxxxxx</p>
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-success sm">登录</button>
-        </div>
-    </div>
-</form>
 </div>
 </body>
 

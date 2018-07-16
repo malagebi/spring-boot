@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,7 +44,6 @@ public class IndexController {
 
     @Autowired
     private UserService userService;
-
 
 
     @RequestMapping("/index")
@@ -90,6 +90,15 @@ public class IndexController {
         return result;
     }
 
+
+    //shiro 登录页跳转
+    @GetMapping(value = "/login")
+    public String loginPage() {
+        return "login";
+    }
+
+
+    //登录方法
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(UserInfo user) {
         Subject subject = SecurityUtils.getSubject();
@@ -100,7 +109,8 @@ public class IndexController {
             e.printStackTrace();
         }
 
-        return "success";
+        //return "success";
+        return "redirect:/index";
 
     }
 
@@ -113,14 +123,10 @@ public class IndexController {
         return "loginPage";
     }
 
-    @RequestMapping(value = "/loginPage")
-    public String loginPage() {
-        return "login";
-    }
 
     @RequestMapping(value = "/saveUser")
     public ModelAndView saveUser() {
-        UserInfo user=new UserInfo();
+        UserInfo user = new UserInfo();
         user.setUserName("test");
         user.setPassword("123");
         userService.saveUser(user);

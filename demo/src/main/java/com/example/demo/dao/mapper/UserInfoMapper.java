@@ -17,5 +17,7 @@ public interface UserInfoMapper {
 
     int updateByPrimaryKey(UserInfo record);
 
-    List<UserInfo>   findUsers();
+    List<UserInfo> findUsers();
+
+    UserInfo selectById(Long id);
 }

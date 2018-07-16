@@ -12,4 +12,5 @@ public interface UserService {
     List<UserInfo> findUserByLoginName();
     void saveUser(UserInfo  user);
     List<UserInfo> findUsers(int pageNumber,int pageSize);
+    UserInfo  findUserById(long id);
 }

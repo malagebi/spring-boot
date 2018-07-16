@@ -21,7 +21,7 @@ public class RateLimiterFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         log.info("come in RateLimiterFilter-------------------------");
         //首先申请一个容量为1(每秒)的限流器，
-        rateLimiter = RateLimiter.create(1);
+        //rateLimiter = RateLimiter.create(1);
     }
 
     @Override
@@ -29,12 +29,12 @@ public class RateLimiterFilter implements Filter {
         log.info("start in RateLimiterFilter-------------------------");
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse res = (HttpServletResponse) servletResponse;
-        if (rateLimiter.tryAcquire()) {
+//        if (rateLimiter.tryAcquire()) {
             filterChain.doFilter(servletRequest, servletResponse);
-        } else {
-            //req.getRequestDispatcher("/404").forward(req, res);
-            res.sendRedirect(req.getContextPath() + "/index");
-        }
+//        } else {
+//            req.getRequestDispatcher("/api/v1/user/reqError").forward(req, res);
+//            //res.sendRedirect(req.getContextPath() + "/api/v1/user/reqError");
+//        }
 
     }
 

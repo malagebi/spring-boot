@@ -8,6 +8,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -36,6 +37,7 @@ public class MailService {
      * @param subject
      * @param content
      */
+    @Async
     public void sendSimpleMail(String to, String subject, String content){
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(from);

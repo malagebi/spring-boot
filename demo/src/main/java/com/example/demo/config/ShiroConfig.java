@@ -38,27 +38,30 @@ public class ShiroConfig {
         log.info("come in shiroFilter----------------------------------");
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager());
-        //shiroFilterFactoryBean.setFilters();
+//        Map<String, Filter> filtersMap = new LinkedHashMap<String, Filter>();
+//        filtersMap.put("kickout",new KickoutSessionControlFilter());
+//        shiroFilterFactoryBean.setFilters(filtersMap);
         //拦截器.
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         // 配置不会被拦截的链接 顺序判断
         filterChainDefinitionMap.put("/static/**", "anon");
-
-        //<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
+        filterChainDefinitionMap.put("/assets/**", "anon");
+        filterChainDefinitionMap.put("/bootstrap/**", "anon");
         //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
         filterChainDefinitionMap.put("/login", "anon");
-        filterChainDefinitionMap.put("/**", "anon");
-        shiroFilterFactoryBean.setLoginUrl("/loginPage");
+        filterChainDefinitionMap.put("/api/**", "anon");
+        filterChainDefinitionMap.put("/**", "authc");
+        shiroFilterFactoryBean.setLoginUrl("/login");
         // 登录成功后要跳转的链接
-        shiroFilterFactoryBean.setSuccessUrl("success");
-
+        shiroFilterFactoryBean.setSuccessUrl("/index");
         //未授权界面;
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
+
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+
         return shiroFilterFactoryBean;
     }
 
-    @Bean(name = "securityManager")
     public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(shiroRealm());
@@ -68,13 +71,11 @@ public class ShiroConfig {
     }
 
 
-    @Bean
     public ShiroSecurity shiroRealm() {
         return new ShiroSecurity();
     }
 
 
-    @Bean
     public DefaultWebSessionManager sessionManager() {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         Collection<SessionListener> listeners = new ArrayList<>();
@@ -85,7 +86,6 @@ public class ShiroConfig {
         return sessionManager;
     }
 
-    @Bean
     public RedisManager redisManager() {
         RedisManager redisManager = new RedisManager();
         redisManager.setHost("10.0.0.42");
@@ -102,11 +102,10 @@ public class ShiroConfig {
     }
 
 
-    @Bean
     public RedisSessionDAO redisSessionDAO() {
         RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
         redisSessionDAO.setRedisManager(redisManager());
-       //这设置过期时间 会覆盖 sessionManager.setGlobalSessionTimeout的设置
+        //这设置过期时间 会覆盖 sessionManager.setGlobalSessionTimeout的设置
         //redisSessionDAO.setExpire(1000000);
         return redisSessionDAO;
     }
@@ -135,8 +134,10 @@ public class ShiroConfig {
         return authorizationAttributeSourceAdvisor;
     }
 
+
+
     @Bean
-    public ShiroDialect shiroDialect(){
+    public ShiroDialect shiroDialect() {
         return new ShiroDialect();
     }
 
